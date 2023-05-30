@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:ala_ui/src/foundation/theme_foundation.dart';
 import 'package:flutter/material.dart';
+import 'foundation.dart';
 
 class ThemeAdapter {
   ThemeFoundation themeFoundation;
@@ -9,32 +9,34 @@ class ThemeAdapter {
   });
 
   static ThemeData toThemeData(ThemeFoundation foundation) {
+    TextTheme textThemeBase = toTextTheme(foundation.typo);
+
     return ThemeData(
-      fontFamily: foundation.typo.primaryFontFamily,
-      colorScheme: ColorScheme(
-        primary: foundation.color.primary,
-        secondary: foundation.color.secondary,
-        onSecondary: foundation.color.onSecondary,
-        surface: foundation.color.surface,
-        background: foundation.color.background,
-        error: foundation.color.error,
-        onPrimary: foundation.color.onPrimary,
-        onSurface: foundation.color.onSurface,
-        onBackground: foundation.color.onBackground,
-        onError: foundation.color.onError,
-        brightness: foundation.brightness,
-      ),
-      primaryColor: foundation.color.primary,
-      splashColor: foundation.color.secondary,
-      inputDecorationTheme: InputDecorationTheme(
-        hintStyle: foundation.typo.body.copyWith(color: foundation.color.onBackground),
-        labelStyle: foundation.typo.body.copyWith(color: foundation.color.onBackground),
-        errorStyle: foundation.typo.caption.copyWith(color: foundation.color.error),
-        focusColor: foundation.color.primary,
-      ),
+      useMaterial3: true,
+      colorScheme: foundation.color.toColorScheme(),
+      textTheme: textThemeBase,
+      typography: Typography.material2021(),
       brightness: foundation.brightness,
       cardColor: foundation.color.surface,
       scaffoldBackgroundColor: foundation.color.background,
     );
   }
+
+  static TextTheme toTextTheme(TypographyData typographyData) => TextTheme(
+        displayLarge: typographyData.displayLarge,
+        displayMedium: typographyData.displayMedium,
+        displaySmall: typographyData.displaySmall,
+        headlineLarge: typographyData.headlineLarge,
+        headlineMedium: typographyData.headlineMedium,
+        headlineSmall: typographyData.headlineSmall,
+        titleLarge: typographyData.titleLarge,
+        titleMedium: typographyData.titleMedium,
+        titleSmall: typographyData.titleSmall,
+        labelLarge: typographyData.labelLarge,
+        labelMedium: typographyData.labelMedium,
+        labelSmall: typographyData.labelSmall,
+        bodyLarge: typographyData.bodyLarge,
+        bodyMedium: typographyData.bodyMedium,
+        bodySmall: typographyData.bodySmall,
+      );
 }
